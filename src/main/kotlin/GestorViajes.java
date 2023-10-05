@@ -10,8 +10,11 @@ import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class GestorViajes {
     private static FileWriter os;            // stream para escribir los datos en el fichero
@@ -69,7 +72,7 @@ public class GestorViajes {
      *
      * @param os stream de escritura asociado al fichero de datos
      */
-    private void escribeFichero(FileWriter os)  {
+    private void escribeFichero(FileWriter os) {
         JSONArray viajes = new JSONArray();
 
 
@@ -128,8 +131,7 @@ public class GestorViajes {
         JSONParser parser = new JSONParser();
         try {
             // Leemos toda la información del fichero en un array de objetos JSON
-            Object a  =parser.parse(is);
-            org.json.simple.JSONArray array = (org.json.simple.JSONArray)  a;
+            org.json.simple.JSONArray array = (org.json.simple.JSONArray) parser.parse(is);
             // Rellena los datos del diccionario en memoria a partir del JSONArray
             rellenaDiccionario(array);
         } catch (IOException e) {
@@ -146,8 +148,14 @@ public class GestorViajes {
      * @param array JSONArray con los datos de los Viajes
      */
     private void rellenaDiccionario(org.json.simple.JSONArray array) {
-        // POR IMPLEMENTAR
 
+        for (Object object : array) {
+            JSONObject jsonObject = object instanceof JSONObject ? (JSONObject) object : null;
+
+            Viaje viaje = new Viaje(jsonObject);
+
+            mapa.put(viaje.getCodviaje(), viaje);
+        }
     }
 
 
@@ -158,7 +166,7 @@ public class GestorViajes {
      * @return JSONArray de viajes con un origen dado. Vacío si no hay viajes disponibles con ese origen
      */
     public JSONArray consultaViajes(String origen) {
-        //POR IMPLEMENTAR
+
         return null;
     }
 

@@ -73,21 +73,19 @@ public class Viaje implements Serializable {
     public JSONObject toJSON() {
         // POR IMPLEMENTAR
         JSONObject raiz = new JSONObject();
-        JSONObject viaje = new JSONObject();
-        raiz.put("viaje", viaje);
-        viaje.put("codViaje", codviaje);
-        viaje.put("codPropietario", codprop);
-        viaje.put("Origen", origen);
-        viaje.put("Destino", destino);
-        viaje.put("Fecha", fecha);
-        viaje.put("Precio", precio);
-        viaje.put("NumPlazas", numplazas);
+        raiz.put("codViaje", codviaje);
+        raiz.put("codPropietario", codprop);
+        raiz.put("Origen", origen);
+        raiz.put("Destino", destino);
+        raiz.put("Fecha", fecha);
+        raiz.put("Precio", precio);
+        raiz.put("NumPlazas", numplazas);
 
         JSONArray pasajeroJSON = new JSONArray();
-        viaje.put("Pasajeros", pasajeroJSON);
+        raiz.put("Pasajeros", pasajeroJSON);
 
         for(String pasajero: pasajeros){
-            pasajeroJSON.put(pasajeros);
+            pasajeroJSON.put(pasajero);
         }
 
         return raiz;

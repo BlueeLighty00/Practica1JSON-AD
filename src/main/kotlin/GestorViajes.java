@@ -1,6 +1,7 @@
-import org.json.JSONArray;
+import org.json.JSONArray; // From the org.json library
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.HashMap;
+import java.util.Objects;
 
 public class GestorViajes {
     private static FileWriter os;            // stream para escribir los datos en el fichero
@@ -67,9 +69,22 @@ public class GestorViajes {
      *
      * @param os stream de escritura asociado al fichero de datos
      */
-    private void escribeFichero(FileWriter os) {
-        // POR IMPLEMENTAR
+    private void escribeFichero(FileWriter os)  {
+        JSONArray viajes = new JSONArray();
 
+
+        for (String codViaje : mapa.keySet()) {
+            Viaje viaje = mapa.get(codViaje);
+
+            viajes.put(viaje.toJSON());
+        }
+
+
+        try {
+            os.write(viajes.toString(4));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 
 
@@ -79,18 +94,27 @@ public class GestorViajes {
     private void generaDatos() {
 
         Viaje viaje = new Viaje("pedro", "Castellón", "Alicante", "28-05-2023", 16, 1);
+        viaje.anyadePasajero("Pablo");
         mapa.put(viaje.getCodviaje(), viaje);
 
         viaje = new Viaje("pedro", "Alicante", "Castellón", "29-05-2023", 16, 1);
+        viaje.anyadePasajero("Juan");
+        viaje.anyadePasajero("Maria");
+
         mapa.put(viaje.getCodviaje(), viaje);
 
         viaje = new Viaje("maria", "Madrid", "Valencia", "07-06-2023", 7, 2);
+        viaje.anyadePasajero("Pablo");
+        viaje.anyadePasajero("Juan");
+        viaje.anyadePasajero("Maria");
         mapa.put(viaje.getCodviaje(), viaje);
 
         viaje = new Viaje("carmen", "Sevilla", "Barcelona", "12-08-2023", 64, 1);
+        viaje.anyadePasajero("Maria");
         mapa.put(viaje.getCodviaje(), viaje);
 
         viaje = new Viaje("juan", "Castellón", "Cordoba", "07-11-2023", 39, 3);
+        viaje.anyadePasajero("Juan");
         mapa.put(viaje.getCodviaje(), viaje);
 
     }
@@ -104,7 +128,8 @@ public class GestorViajes {
         JSONParser parser = new JSONParser();
         try {
             // Leemos toda la información del fichero en un array de objetos JSON
-            JSONArray array = (JSONArray) parser.parse(is);
+            Object a  =parser.parse(is);
+            org.json.simple.JSONArray array = (org.json.simple.JSONArray)  a;
             // Rellena los datos del diccionario en memoria a partir del JSONArray
             rellenaDiccionario(array);
         } catch (IOException e) {
@@ -120,7 +145,7 @@ public class GestorViajes {
      *
      * @param array JSONArray con los datos de los Viajes
      */
-    private void rellenaDiccionario(JSONArray array) {
+    private void rellenaDiccionario(org.json.simple.JSONArray array) {
         // POR IMPLEMENTAR
 
     }
@@ -136,77 +161,80 @@ public class GestorViajes {
         //POR IMPLEMENTAR
         return null;
     }
-        /**
-         * El cliente codcli reserva el viaje codviaje
-         *
-         * @param codviaje
-         * @param codcli
-         * @return JSONObject con la información del viaje. Vacío si no existe o no está disponible
-         */
-        public JSONObject reservaViaje (String codviaje, String codcli){
-            // POR IMPLEMENTAR
-            return null;
-        }
 
-        /**
-         * El cliente codcli anula su reserva del viaje codviaje
-         *
-         * @param codviaje    codigo del viaje a anular
-         * @param codcli    codigo del cliente
-         * @return JSON del viaje en que se ha anulado la reserva. JSON vacio si no se ha anulado
-         */
-        public JSONObject anulaReserva (String codviaje, String codcli){
-            // POR IMPLEMENTAR
-            return null;
-        }
-
-        /**
-         * Devuelve si una fecha es válida y futura
-         * @param fecha
-         * @return
-         */
-        private boolean es_fecha_valida (String fecha){
-
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-
-            try {
-                LocalDate dia = LocalDate.parse(fecha, formatter);
-                LocalDate hoy = LocalDate.now();
-
-                return dia.isAfter(hoy);
-            } catch (DateTimeParseException e) {
-                System.out.println("Fecha invalida: " + fecha);
-                return false;
-            }
-
-        }
-
-        /**
-         * El cliente codcli oferta un Viaje
-         * @param codcli
-         * @param origen
-         * @param destino
-         * @param fecha
-         * @param precio
-         * @param numplazas
-         * @return JSONObject con los datos del viaje ofertado
-         */
-        public JSONObject ofertaViaje (String codcli, String origen, String destino, String fecha,long precio,
-        long numplazas){
-            // POR IMPLEMENTAR
-            return null;
-        }
-
-
-        /**
-         * El cliente codcli borra un viaje que ha ofertado
-         *
-         * @param codviaje    codigo del viaje a borrar
-         * @param codcli    codigo del cliente
-         * @return JSONObject del viaje borrado. JSON vacio si no se ha borrado
-         */
-        public JSONObject borraViaje (String codviaje, String codcli){
-            // POR IMPLEMENTAR
-            return null;
-        }
+    /**
+     * El cliente codcli reserva el viaje codviaje
+     *
+     * @param codviaje
+     * @param codcli
+     * @return JSONObject con la información del viaje. Vacío si no existe o no está disponible
+     */
+    public JSONObject reservaViaje(String codviaje, String codcli) {
+        // POR IMPLEMENTAR
+        return null;
     }
+
+    /**
+     * El cliente codcli anula su reserva del viaje codviaje
+     *
+     * @param codviaje codigo del viaje a anular
+     * @param codcli   codigo del cliente
+     * @return JSON del viaje en que se ha anulado la reserva. JSON vacio si no se ha anulado
+     */
+    public JSONObject anulaReserva(String codviaje, String codcli) {
+        // POR IMPLEMENTAR
+        return null;
+    }
+
+    /**
+     * Devuelve si una fecha es válida y futura
+     *
+     * @param fecha
+     * @return
+     */
+    private boolean es_fecha_valida(String fecha) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        try {
+            LocalDate dia = LocalDate.parse(fecha, formatter);
+            LocalDate hoy = LocalDate.now();
+
+            return dia.isAfter(hoy);
+        } catch (DateTimeParseException e) {
+            System.out.println("Fecha invalida: " + fecha);
+            return false;
+        }
+
+    }
+
+    /**
+     * El cliente codcli oferta un Viaje
+     *
+     * @param codcli
+     * @param origen
+     * @param destino
+     * @param fecha
+     * @param precio
+     * @param numplazas
+     * @return JSONObject con los datos del viaje ofertado
+     */
+    public JSONObject ofertaViaje(String codcli, String origen, String destino, String fecha, long precio,
+                                  long numplazas) {
+        // POR IMPLEMENTAR
+        return null;
+    }
+
+
+    /**
+     * El cliente codcli borra un viaje que ha ofertado
+     *
+     * @param codviaje codigo del viaje a borrar
+     * @param codcli   codigo del cliente
+     * @return JSONObject del viaje borrado. JSON vacio si no se ha borrado
+     */
+    public JSONObject borraViaje(String codviaje, String codcli) {
+        // POR IMPLEMENTAR
+        return null;
+    }
+}

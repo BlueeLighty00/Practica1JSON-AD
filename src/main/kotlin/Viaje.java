@@ -2,6 +2,8 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Vector;
+
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 public class Viaje implements Serializable {
@@ -81,11 +83,11 @@ public class Viaje implements Serializable {
         viaje.put("Precio", precio);
         viaje.put("NumPlazas", numplazas);
 
-        JSONObject pasajeroJSON = new JSONObject();
+        JSONArray pasajeroJSON = new JSONArray();
         viaje.put("Pasajeros", pasajeroJSON);
 
         for(String pasajero: pasajeros){
-            pasajeroJSON.put("Pasajero", pasajero);
+            pasajeroJSON.put(pasajeros);
         }
 
         return raiz;

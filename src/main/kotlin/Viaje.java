@@ -5,6 +5,7 @@ import java.util.Vector;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.json.JSONTokener;
 
 public class Viaje implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -51,7 +52,18 @@ public class Viaje implements Serializable {
      */
     public Viaje(JSONObject jsonViaje) {
         super();
-        // POR IMPLEMENTAR
+        this.codviaje = jsonViaje.getString("codViaje");
+        this.codprop = jsonViaje.getString("codPropietario");
+        this.origen = jsonViaje.getString("Origen");
+        this.destino = jsonViaje.getString("Destino");
+        this.fecha = jsonViaje.getString("Fecha");
+        this.precio = jsonViaje.getLong("Precio");
+        this.numplazas = jsonViaje.getLong("NumPlazas");
+
+        JSONArray pasajerosJSON = jsonViaje.getJSONArray("Pasajaeros");
+        for(Object pasajero : pasajerosJSON){
+            pasajeros.add(pasajero.toString());
+        }
 
     }
 
@@ -71,7 +83,6 @@ public class Viaje implements Serializable {
      * @return	objeto JSON con los datos del Viaje
      */
     public JSONObject toJSON() {
-        // POR IMPLEMENTAR
         JSONObject raiz = new JSONObject();
         raiz.put("codViaje", codviaje);
         raiz.put("codPropietario", codprop);

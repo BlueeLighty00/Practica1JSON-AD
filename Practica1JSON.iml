@@ -14,7 +14,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../Drivers/json-20210307.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Drivers/json-20210307.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -23,7 +23,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../Drivers/moshi-1.8.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Drivers/json-simple-1.1.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -32,7 +32,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../Drivers/okio-1.16.0.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Drivers/moshi-1.8.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
@@ -41,7 +41,7 @@
     <orderEntry type="module-library">
       <library>
         <CLASSES>
-          <root url="jar://$MODULE_DIR$/../../../Drivers/json-simple-1.1.jar!/" />
+          <root url="jar://$MODULE_DIR$/../../Drivers/okio-1.16.0.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />

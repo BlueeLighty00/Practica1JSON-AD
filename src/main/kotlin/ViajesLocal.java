@@ -18,15 +18,18 @@ public class ViajesLocal {
             option = leerInt("Introduce una opción válida.");
 
             switch (option) {
-                case 1: gestor.consultaViajes(leerString("Introduce un origen: ")).toString(); limpiarPantalla();
-                case 2: ;
+                case 1: ;
+                case 2: {
+                    String origen = leerString("Introduce un origen válido: ");
+                    System.out.println(gestor.consultaViajes(origen));}
                 case 3: ;
                 case 4: ;
                 case 5: ;
                 case 6: ;
-                default: System.out.println("Has introducido una opción no válida."); limpiarPantalla();
             }
         }
+
+
     }
 
     public static String leerString(String mensaje) {
@@ -37,9 +40,7 @@ public class ViajesLocal {
 
     public static int leerInt(String mensaje) {
         System.out.println(mensaje);
-        int value = sc.nextInt();
-        sc.nextLine();
-        return value;
+        return sc.nextInt();
     }
 
     public static void mostrarMenu() {
@@ -54,7 +55,7 @@ public class ViajesLocal {
 
     public static void limpiarPantalla() {
         System.out.println("Presiona enter para continuar...");
-        sc.nextLine();
+        sc.next();
 
         for(int i = 0; i < 50; i++) {
             System.out.println();

@@ -61,8 +61,8 @@ public class Viaje implements Serializable {
         this.numplazas = (Long) jsonViaje.get("NumPlazas");
 
         JSONArray pasajerosJSON = (JSONArray) jsonViaje.get("Pasajaeros");
-        for(Object pasajero : pasajerosJSON){
-            if (pasajeros != null) {
+        if(pasajerosJSON != null) {
+            for (Object pasajero : pasajerosJSON) {
                 pasajeros.add(pasajero.toString());
             }
         }

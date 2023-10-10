@@ -6,13 +6,10 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -24,7 +21,7 @@ public class GestorViajes {
      * Diccionario para manejar los datos en memoria.
      * La clave es el codigo único del viaje.
      */
-    private static HashMap<String, Viaje> mapa;
+    public static HashMap<String, Viaje> mapa;
 
 
     /**
@@ -94,19 +91,19 @@ public class GestorViajes {
     /**
      * Genera los datos iniciales
      */
-    private void generaDatos() {
+    public void generaDatos() {
 
         Viaje viaje = new Viaje("pedro", "Castellón", "Alicante", "28-05-2023", 16, 1);
         viaje.anyadePasajero("Pablo");
         mapa.put(viaje.getCodviaje(), viaje);
 
-        viaje = new Viaje("pedro", "Alicante", "Castellón", "29-05-2023", 16, 1);
+        viaje = new Viaje("pedro", "Alicante", "Castellón", "29-05-2023", 16, 3);
         viaje.anyadePasajero("Juan");
         viaje.anyadePasajero("Maria");
 
         mapa.put(viaje.getCodviaje(), viaje);
 
-        viaje = new Viaje("maria", "Madrid", "Valencia", "07-06-2023", 7, 2);
+        viaje = new Viaje("maria", "Madrid", "Valencia", "07-06-2023", 7, 3);
         viaje.anyadePasajero("Pablo");
         viaje.anyadePasajero("Juan");
         viaje.anyadePasajero("Maria");
@@ -169,7 +166,16 @@ public class GestorViajes {
      */
     public JSONArray consultaViajes(String origen) {
 
-        return null;
+        Set<Viaje> viajes = mapa.values().stream().filter(viaje -> viaje.getOrigen() == origen).collect(Collectors.toSet());
+
+        JSONArray viajesJsonArray = new JSONArray();
+
+        for (Viaje viaje : viajes) {
+
+            viajesJsonArray.put(viaje.toJSON());
+        }
+
+        return viajesJsonArray;
     }
 
     /**
@@ -180,9 +186,14 @@ public class GestorViajes {
      * @return JSONObject con la información del viaje. Vacío si no existe o no está disponible
      */
     public JSONObject reservaViaje(String codviaje, String codcli) {
-        // POR IMPLEMENTAR
-        return null;
+        Viaje viaje = mapa.get(codviaje);
+        if (viaje == null) return null;
+
+        viaje.borraPasajero(codcli);
+
+        return viaje.toJSON();
     }
+
 
     /**
      * El cliente codcli anula su reserva del viaje codviaje
@@ -192,8 +203,14 @@ public class GestorViajes {
      * @return JSON del viaje en que se ha anulado la reserva. JSON vacio si no se ha anulado
      */
     public JSONObject anulaReserva(String codviaje, String codcli) {
-        // POR IMPLEMENTAR
-        return null;
+        Viaje viaje = mapa.get(codviaje);
+        if (viaje == null) return null;
+
+        viaje.borraPasajero(codcli);
+
+        System.out.println(viaje.toString());
+
+        return viaje.toJSON();
     }
 
     /**

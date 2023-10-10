@@ -3,8 +3,8 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Vector;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.JSONTokener;
 
 public class Viaje implements Serializable {
@@ -52,15 +52,15 @@ public class Viaje implements Serializable {
      */
     public Viaje(JSONObject jsonViaje) {
         super();
-        this.codviaje = jsonViaje.getString("codViaje");
-        this.codprop = jsonViaje.getString("codPropietario");
-        this.origen = jsonViaje.getString("Origen");
-        this.destino = jsonViaje.getString("Destino");
-        this.fecha = jsonViaje.getString("Fecha");
-        this.precio = jsonViaje.getLong("Precio");
-        this.numplazas = jsonViaje.getLong("NumPlazas");
+        this.codviaje = (String) jsonViaje.get("codViaje");
+        this.codprop = (String) jsonViaje.get("codPropietario");
+        this.origen = (String) jsonViaje.get("Origen");
+        this.destino = (String) jsonViaje.get("Destino");
+        this.fecha = (String) jsonViaje.get("Fecha");
+        this.precio = (Long) jsonViaje.get("Precio");
+        this.numplazas = (Long) jsonViaje.get("NumPlazas");
 
-        JSONArray pasajerosJSON = jsonViaje.getJSONArray("Pasajaeros");
+        JSONArray pasajerosJSON = (JSONArray) jsonViaje.get("Pasajaeros");
         for(Object pasajero : pasajerosJSON){
             if (pasajeros != null) {
                 pasajeros.add(pasajero.toString());
@@ -98,7 +98,7 @@ public class Viaje implements Serializable {
         raiz.put("Pasajeros", pasajeroJSON);
 
         for(String pasajero: pasajeros){
-            pasajeroJSON.put(pasajero);
+            pasajeroJSON.add(pasajero);
         }
 
         return raiz;

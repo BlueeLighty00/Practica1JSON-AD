@@ -150,7 +150,9 @@ public class GestorViajes {
     private void rellenaDiccionario(org.json.simple.JSONArray array) {
 
         for (Object object : array) {
-            JSONObject jsonObject = object instanceof JSONObject ? (JSONObject) object : null;
+            if (!(object instanceof JSONObject jsonObject)){
+                continue;
+            }
 
             Viaje viaje = new Viaje(jsonObject);
 

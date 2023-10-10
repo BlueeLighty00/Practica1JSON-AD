@@ -1,5 +1,6 @@
-import org.json.JSONArray; // From the org.json library
-import org.json.JSONObject;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
 import java.io.File;
@@ -76,12 +77,12 @@ public class GestorViajes {
         for (String codViaje : mapa.keySet()) {
             Viaje viaje = mapa.get(codViaje);
 
-            viajes.put(viaje.toJSON());
+            viajes.add(viaje.toJSON());
         }
 
 
         try {
-            os.write(viajes.toString(4));
+            os.write(viajes.toString());
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -172,7 +173,7 @@ public class GestorViajes {
 
         for (Viaje viaje : viajes) {
 
-            viajesJsonArray.put(viaje.toJSON());
+            viajesJsonArray.add(viaje.toJSON());
         }
 
         return viajesJsonArray;
@@ -189,7 +190,7 @@ public class GestorViajes {
         Viaje viaje = mapa.get(codviaje);
         if (viaje == null) return null;
 
-        viaje.borraPasajero(codcli);
+        viaje.anyadePasajero(codcli);
 
         return viaje.toJSON();
     }
@@ -248,8 +249,8 @@ public class GestorViajes {
      */
     public JSONObject ofertaViaje(String codcli, String origen, String destino, String fecha, long precio,
                                   long numplazas) {
-        // POR IMPLEMENTAR
-        return null;
+        Viaje viaje = new Viaje(codcli,origen,destino,fecha,precio,numplazas);
+        return viaje.toJSON();
     }
 
 
@@ -261,7 +262,12 @@ public class GestorViajes {
      * @return JSONObject del viaje borrado. JSON vacio si no se ha borrado
      */
     public JSONObject borraViaje(String codviaje, String codcli) {
-        // POR IMPLEMENTAR
+
+        Viaje viaje = mapa.get(codviaje);
+
+
+
+
         return null;
     }
 }

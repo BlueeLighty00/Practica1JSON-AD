@@ -5,7 +5,6 @@ import java.util.Vector;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.JSONTokener;
 
 public class Viaje implements Serializable {
     private static final long serialVersionUID = 1L;
@@ -59,8 +58,9 @@ public class Viaje implements Serializable {
         this.fecha = (String) jsonViaje.get("Fecha");
         this.precio = (Long) jsonViaje.get("Precio");
         this.numplazas = (Long) jsonViaje.get("NumPlazas");
+        this.pasajeros = new Vector<String>();
 
-        JSONArray pasajerosJSON = (JSONArray) jsonViaje.get("Pasajaeros");
+        JSONArray pasajerosJSON = (JSONArray) jsonViaje.get("Pasajeros");
         if(pasajerosJSON != null) {
             for (Object pasajero : pasajerosJSON) {
                 pasajeros.add(pasajero.toString());
@@ -95,11 +95,13 @@ public class Viaje implements Serializable {
         raiz.put("NumPlazas", numplazas);
 
         JSONArray pasajeroJSON = new JSONArray();
-        raiz.put("Pasajeros", pasajeroJSON);
+
 
         for(String pasajero: pasajeros){
             pasajeroJSON.add(pasajero);
         }
+
+        raiz.put("Pasajeros", pasajeroJSON);
 
         return raiz;
     }

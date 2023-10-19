@@ -10,7 +10,9 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -145,10 +147,10 @@ public class GestorViajes {
      *
      * @param array JSONArray con los datos de los Viajes
      */
-    private void rellenaDiccionario(org.json.simple.JSONArray array) {
+    private void rellenaDiccionario(JSONArray array) {
 
         for (Object object : array) {
-            if (!(object instanceof JSONObject jsonObject)){
+            if (!(object instanceof JSONObject jsonObject)) {
                 continue;
             }
 
@@ -167,14 +169,14 @@ public class GestorViajes {
      */
     public JSONArray consultaViajes(String origen) {
 
-        Set<Viaje> viajes = mapa.values().stream().filter(viaje -> viaje.getOrigen() == origen).collect(Collectors.toSet());
-
         JSONArray viajesJsonArray = new JSONArray();
 
-        for (Viaje viaje : viajes) {
-
-            viajesJsonArray.add(viaje.toJSON());
+        for (Viaje viaje : mapa.values()) {
+            if (viaje.getOrigen().equals( origen)){
+                viajesJsonArray.add(viaje.toJSON());
+            }
         }
+
 
         return viajesJsonArray;
     }
@@ -249,7 +251,7 @@ public class GestorViajes {
      */
     public JSONObject ofertaViaje(String codcli, String origen, String destino, String fecha, long precio,
                                   long numplazas) {
-        Viaje viaje = new Viaje(codcli,origen,destino,fecha,precio,numplazas);
+        Viaje viaje = new Viaje(codcli, origen, destino, fecha, precio, numplazas);
         return viaje.toJSON();
     }
 
@@ -264,8 +266,6 @@ public class GestorViajes {
     public JSONObject borraViaje(String codviaje, String codcli) {
 
         Viaje viaje = mapa.get(codviaje);
-
-
 
 
         return null;

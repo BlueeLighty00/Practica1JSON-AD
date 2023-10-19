@@ -10,11 +10,8 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Objects;
-import java.util.Set;
-import java.util.stream.Collectors;
+
 
 public class GestorViajes {
     private static FileWriter os;            // stream para escribir los datos en el fichero
@@ -274,7 +271,7 @@ public class GestorViajes {
         if (viaje.finalizado()){
             return new JSONObject();
         }
-        if (codcli != viaje.getCodprop()){
+        if (!codcli.equals(viaje.getCodprop())){
             return new JSONObject();
         }
 

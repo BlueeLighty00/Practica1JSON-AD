@@ -250,7 +250,10 @@ public class GestorViajes {
      * @return JSONObject con los datos del viaje ofertado
      */
     public JSONObject ofertaViaje(String codcli, String origen, String destino, String fecha, long precio,
-                                  long numplazas) {
+                                  long numplazas) throws Exception {
+        if (!es_fecha_valida(fecha)){
+            throw new Exception("Fecha no valida");
+        }
         Viaje viaje = new Viaje(codcli, origen, destino, fecha, precio, numplazas);
         return viaje.toJSON();
     }

@@ -190,7 +190,7 @@ public class GestorViajes {
      */
     public JSONObject reservaViaje(String codviaje, String codcli) {
         Viaje viaje = mapa.get(codviaje);
-        if (viaje == null) return null;
+        if (viaje == null) return new JSONObject();
 
         viaje.anyadePasajero(codcli);
 
@@ -207,7 +207,7 @@ public class GestorViajes {
      */
     public JSONObject anulaReserva(String codviaje, String codcli) {
         Viaje viaje = mapa.get(codviaje);
-        if (viaje == null) return null;
+        if (viaje == null) return new JSONObject();
 
         viaje.borraPasajero(codcli);
 
@@ -268,6 +268,12 @@ public class GestorViajes {
         Viaje viaje = mapa.get(codviaje);
 
 
-        return null;
+        if (codcli != viaje.getCodprop()){
+            return new JSONObject();
+        }
+
+        mapa.remove(codviaje);
+
+        return viaje.toJSON();
     }
 }

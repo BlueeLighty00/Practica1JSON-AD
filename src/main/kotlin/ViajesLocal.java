@@ -18,17 +18,46 @@ public class ViajesLocal {
             option = leerInt("Introduce una opción válida.");
 
             switch (option) {
-                case 1: ;
+                case 1:
+                    gestor.guardaDatos();
+                    break;
                 case 2: {
                     String origen = leerString("Introduce un origen válido: ");
-                    System.out.println(gestor.consultaViajes(origen));}
-                case 3: ;
-                case 4: ;
-                case 5: ;
-                case 6: ;
+                    System.out.println(gestor.consultaViajes(origen));
+                }break;
+                case 3: {
+                    String codviaje = leerString("Introduce un código de viaje válido: ");
+                    System.out.println(gestor.reservaViaje(codviaje, codcli));
+                }break;
+                case 4: {
+                    String codviaje = leerString("Introduce un código de viaje válido: ");
+                    System.out.println(gestor.anulaReserva(codviaje, codcli));
+                }break;
+                case 5: {
+                    generaViaje(gestor, codcli);
+                }break;
+                case 6: {
+                    String codviaje = leerString("Introduce un código de viaje válido: ");
+                    System.out.println(gestor.borraViaje(codviaje, codcli));
+                }break;
             }
         }
 
+    }
+
+    public static void generaViaje(GestorViajes gestor, String codcli) {
+        String origen = leerString("Introduce el origen del viaje:");
+        String destino = leerString("Introduce el destino del viaje:");
+        String fecha = leerString("Introduce una fecha válida para el viaje:");
+        long precio = leerLong("Introduce un precio válido");
+        long numPlazas = leerLong("Introduce un número de plazas válidas.");
+
+        try {
+            System.out.println(gestor.ofertaViaje(codcli, origen, destino, fecha, precio, numPlazas));
+        } catch (Exception e) {
+            System.out.println("Fecha no válida bobo.");
+        }
+        ;
 
     }
 
@@ -41,6 +70,11 @@ public class ViajesLocal {
     public static int leerInt(String mensaje) {
         System.out.println(mensaje);
         return sc.nextInt();
+    }
+
+    public static long leerLong(String mensaje) {
+        System.out.println(mensaje);
+        return sc.nextLong();
     }
 
     public static void mostrarMenu() {

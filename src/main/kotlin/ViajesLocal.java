@@ -1,3 +1,5 @@
+import gestor.GestorViajes;
+
 import java.util.Scanner;
 
 public class ViajesLocal {

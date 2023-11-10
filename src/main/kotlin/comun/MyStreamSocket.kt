@@ -1,0 +1,4 @@
+package comun
+
+class MyStreamSocket {
+}

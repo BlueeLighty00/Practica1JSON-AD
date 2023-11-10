@@ -1,3 +1,5 @@
+package gestor;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -10,7 +12,7 @@ public class Viaje implements Serializable {
     private static final long serialVersionUID = 1L;
 
     /**
-     * Clase Viaje ofertado
+     * Clase gestor.Viaje ofertado
      */
     private String codviaje;	// codigo del viaje construido como codprop[0]+origen[0]+destino[0]+fecha[0:1]
     private String codprop;     // código del propietario
@@ -45,7 +47,7 @@ public class Viaje implements Serializable {
     }
 
     /**
-     * Contructor de un Viaje a partir de su representación en formato JSON
+     * Contructor de un gestor.Viaje a partir de su representación en formato JSON
      *
      * @param jsonViaje
      */
@@ -70,7 +72,7 @@ public class Viaje implements Serializable {
     }
 
     /**
-     * Devuelve los datos del Viaje en formato JSON
+     * Devuelve los datos del gestor.Viaje en formato JSON
      *
      * @return	cadena en formato JSON con los datos del viaje
      */
@@ -82,7 +84,7 @@ public class Viaje implements Serializable {
     /**
      * Devuelve un objeto JSON con los datos del viaje
      *
-     * @return	objeto JSON con los datos del Viaje
+     * @return	objeto JSON con los datos del gestor.Viaje
      */
     public JSONObject toJSON() {
         JSONObject raiz = new JSONObject();
@@ -107,7 +109,7 @@ public class Viaje implements Serializable {
     }
 
     /**
-     * Indica si quedan plazas libres en el Viaje
+     * Indica si quedan plazas libres en el gestor.Viaje
      *
      * @return	valor lógico indicando si quedan plazas
      */
@@ -137,7 +139,7 @@ public class Viaje implements Serializable {
      * Si no quedan plazas libres, devuelve false
      *
      * @param pasajero
-     * @return	valor lógico indicando si se ha podido añadir el pasajero al Viaje
+     * @return	valor lógico indicando si se ha podido añadir el pasajero al gestor.Viaje
      */
     public boolean anyadePasajero(String pasajero) {
         if (quedanPlazas()) {
@@ -149,11 +151,11 @@ public class Viaje implements Serializable {
     }
 
     /**
-     * Borra un pasajero del Viaje.
+     * Borra un pasajero del gestor.Viaje.
      * Si no puede borrarlo, devuelve false.
      *
      * @param pasajero
-     * @return	valor lógico indicando si se ha podido borrar el pasajero del Viaje
+     * @return	valor lógico indicando si se ha podido borrar el pasajero del gestor.Viaje
      */
     public boolean borraPasajero(String pasajero) {
         if (pasajeros.contains(pasajero)) {
@@ -171,7 +173,7 @@ public class Viaje implements Serializable {
     /**
      * Contruye el código de un viaje a partir de otros atributos
      *
-     * @return	código del Viaje construido
+     * @return	código del gestor.Viaje construido
      */
     private String construyeCodviaje() {
         return codprop.substring(0,1) + origen.substring(0,1) + destino.substring(0,1) + fecha.substring(0,2);
@@ -229,4 +231,4 @@ public class Viaje implements Serializable {
         return pasajeros;
     }
 
-} // fin clase Viaje
+} // fin clase gestor.Viaje

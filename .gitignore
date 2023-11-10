@@ -31,3 +31,5 @@ bin/
  ## main ##
 
 /src/main/kotlin/Main.java
+
+.idea/

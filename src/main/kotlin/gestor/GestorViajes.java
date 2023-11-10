@@ -1,3 +1,4 @@
+package gestor;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -237,7 +238,7 @@ public class GestorViajes {
     }
 
     /**
-     * El cliente codcli oferta un Viaje
+     * El cliente codcli oferta un gestor.Viaje
      *
      * @param codcli
      * @param origen

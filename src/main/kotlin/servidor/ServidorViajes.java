@@ -1,4 +1,4 @@
 package servidor;
 
-public class ServidorViajes gu{
+public class ServidorViajes {
 }

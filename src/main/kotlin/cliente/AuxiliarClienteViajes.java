@@ -175,7 +175,13 @@ public class AuxiliarClienteViajes {
      * Finaliza la conexion con el servidor
      */
     public void cierraSesion( ) {
-        // POR IMPLEMENTAR
+        JSONObject consulta = new JSONObject();
+        consulta.put("peticion", 0);
+
+        try {
+            mySocket.sendMessage(consulta.toJSONString());
+            mySocket.receiveMessage();
+        } catch (Exception e) { e.printStackTrace(); }
 
     } // end done
 } //end class

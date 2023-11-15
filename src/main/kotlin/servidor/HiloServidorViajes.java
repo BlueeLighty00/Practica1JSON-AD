@@ -46,8 +46,7 @@ class HiloServidorViajes implements Runnable {
                 // Extrae la operación y sus parámetros
                 JSONParser parser = new JSONParser();
                 JSONObject jsonObject = (JSONObject) parser.parse(peticion);
-                operacion = (String) jsonObject.get("peticion");
-                System.out.println(operacion);
+                operacion = jsonObject.get("peticion").toString();
                 switch (operacion) {
                     case "0":
                         gestor.guardaDatos();
@@ -92,6 +91,7 @@ class HiloServidorViajes implements Runnable {
         }
         catch (Exception ex) {
             System.out.println("Exception caught in thread: " + ex);
+            ex.printStackTrace();
         } // fin catch
     } //fin run
 

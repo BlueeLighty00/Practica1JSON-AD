@@ -48,7 +48,6 @@ public class AuxiliarClienteViajes {
      * @return array JSON de viajes desde un origen. array vacio si no hay ninguno
      */
     public JSONArray consultaViajes(String origen) {
-        // POR IMPLEMENTAR
         JSONObject consulta = new JSONObject();
         consulta.put("peticion", 1);
         consulta.put("origen", origen);
@@ -61,7 +60,7 @@ public class AuxiliarClienteViajes {
             array = (JSONArray) parser.parse(respuesta);
         } catch (Exception e) { e.printStackTrace(); }
 
-        return array; // cambiar por el retorno correcto
+        return array;
     } // end consultaViajes
 
 

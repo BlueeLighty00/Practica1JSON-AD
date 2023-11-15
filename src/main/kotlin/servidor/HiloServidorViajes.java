@@ -78,8 +78,15 @@ class HiloServidorViajes implements Runnable {
 
                     }
                     case "4": { // Oferta un viaje
-                        // ...
+                        String codprop = (String) jsonObject.get("codprop");
+                        String origen = (String) jsonObject.get("origen");
+                        String destino = (String) jsonObject.get("destino");
+                        String fecha = (String) jsonObject.get("fecha");
+                        Long precio = (Long) jsonObject.get("precio");
+                        Long numplazas = (Long) jsonObject.get("numplazas");
 
+                        JSONObject viaje = gestor.ofertaViaje(codprop, origen, destino, fecha, precio, numplazas);
+                        myDataSocket.sendMessage(viaje.toJSONString());
                         break;
                     }
                     case "5": { // Borra un viaje

@@ -126,8 +126,24 @@ public class AuxiliarClienteViajes {
      * @return	viaje ofertado en formatoJSON. Vacio si no se ha podido ofertar
      */
     public JSONObject ofertaViaje(String codprop, String origen, String destino, String fecha, long precio, long numplazas) {
-        // POR IMPLEMENTAR
-        return null; // cambiar por el retorno correcto
+        JSONObject consulta = new JSONObject();
+        consulta.put("peticion", 4);
+        consulta.put("codprop", codprop);
+        consulta.put("origen", origen);
+        consulta.put("destino", destino);
+        consulta.put("fecha", fecha);
+        consulta.put("precio", precio);
+        consulta.put("numplazas", numplazas);
+
+        String respuesta;
+        JSONObject object = new JSONObject();
+        try {
+            mySocket.sendMessage(consulta.toJSONString());
+            respuesta = mySocket.receiveMessage();
+            object = (JSONObject) parser.parse(respuesta);
+        } catch (Exception e) { e.printStackTrace(); }
+
+        return object; // cambiar por el retorno correcto
     } // end ofertaViaje
 
     /**

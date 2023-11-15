@@ -254,6 +254,7 @@ public class GestorViajes {
             throw new Exception("Fecha no valida");
         }
         Viaje viaje = new Viaje(codcli, origen, destino, fecha, precio, numplazas);
+        mapa.put(viaje.getCodviaje(), viaje);
         return viaje.toJSON();
     }
 

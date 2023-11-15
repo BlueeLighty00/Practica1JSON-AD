@@ -56,13 +56,11 @@ public class ClienteViajes {
             switch (opcion) {
                 case 0: // Guardar los datos en el fichero y salir del programa
 
-                    // POR IMPLEMENTAR
                     aux.cierraSesion();
                     System.out.println("Cerrando sesion...");
                     break;
                 case 1: { // Consultar viajes con un origen dado
 
-                    // POR IMPLEMENTAR
                     System.out.print("Indica el origen del viaje: ");
                     String origen = teclado.nextLine();
                     JSONArray list = aux.consultaViajes(origen);
@@ -72,7 +70,6 @@ public class ClienteViajes {
 
                 case 2: { // Reservar un viaje
 
-                    // POR IMPLEMENTAR
                     System.out.print("Indica el viaje a reservar: ");
                     String codviaje = teclado.nextLine();
                     obj = aux.reservaViaje(codviaje, codcli);
@@ -82,7 +79,6 @@ public class ClienteViajes {
 
                 case 3: { // Anular una reserva
 
-                    // POR IMPLEMENTAR
                     System.out.print("Indica el viaje que quieres anular: ");
                     String codviaje = teclado.nextLine();
                     obj = aux.anulaReserva(codviaje, codcli);
@@ -92,7 +88,6 @@ public class ClienteViajes {
 
                 case 4: { // Ofertar un viaje
 
-                    // POR IMPLEMENTAR
                     System.out.print("Dame el origen del viaje: ");
                     String origen = teclado.nextLine();
                     System.out.print("Dame el destino del viaje: ");
@@ -110,7 +105,6 @@ public class ClienteViajes {
 
                 case 5: { // Borrar un viaje ofertado
 
-                    // POR IMPLEMENTAR
                     System.out.print("Indica el viaje que quieres borrar: ");
                     String codviaje = teclado.nextLine();
                     obj = aux.borraViaje(codviaje, codcli);

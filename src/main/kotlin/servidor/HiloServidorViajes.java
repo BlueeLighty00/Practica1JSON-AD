@@ -55,14 +55,17 @@ class HiloServidorViajes implements Runnable {
                         break;
 
                     case "1": { // Consulta los viajes con un origen dado
-                        JSONArray viajes = gestor.consultaViajes((String) jsonObject.get("origen"));
+                        String origen = (String) jsonObject.get("origen");
+                        JSONArray viajes = gestor.consultaViajes(origen);
                         System.out.println(viajes.toJSONString());
                         myDataSocket.sendMessage(viajes.toJSONString());
                         break;
                     }
                     case "2": { // Reserva una plaza en un viaje
-                        // ...
-
+                        String codviaje = (String) jsonObject.get("codviaje");
+                        String codcli = (String) jsonObject.get("codcliente");
+                        JSONObject viaje = gestor.reservaViaje(codviaje, codcli);
+                        myDataSocket.sendMessage(viaje.toJSONString());
                         break;
                     }
                     case "3": { // Pone en venta un articulo

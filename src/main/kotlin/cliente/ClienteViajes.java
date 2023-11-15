@@ -1,101 +1,127 @@
 package cliente;
 
-import gestor.GestorViajes;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class ClienteViajes {
-    private static Scanner sc = new Scanner(System.in);
-
-    public static void main(String[] args) {
-        GestorViajes gestor = new GestorViajes();
-
-        String codcli = leerString("Cuál es tu código de cliente?");
-        System.out.println();
-
-        int option = 0;
-
-        while (option != 1) {
-            mostrarMenu();
-
-            option = leerInt("Introduce una opción válida.");
-
-            switch (option) {
-                case 1:
-                    gestor.guardaDatos();
-                    break;
-                case 2: {
-                    String origen = leerString("Introduce un origen válido: ");
-                    System.out.println(gestor.consultaViajes(origen));
-                }break;
-                case 3: {
-                    String codviaje = leerString("Introduce un código de viaje válido: ");
-                    System.out.println(gestor.reservaViaje(codviaje, codcli));
-                }break;
-                case 4: {
-                    String codviaje = leerString("Introduce un código de viaje válido: ");
-                    System.out.println(gestor.anulaReserva(codviaje, codcli));
-                }break;
-                case 5: {
-                    generaViaje(gestor, codcli);
-                }break;
-                case 6: {
-                    String codviaje = leerString("Introduce un código de viaje válido: ");
-                    System.out.println(gestor.borraViaje(codviaje, codcli));
-                }break;
-            }
-        }
-
+    public static int menu(Scanner teclado) {
+        int opcion;
+        System.out.println("\n\n");
+        System.out.println("=====================================================");
+        System.out.println("============            MENU        =================");
+        System.out.println("=====================================================");
+        System.out.println("0. Salir");
+        System.out.println("1. Consultar viajes con un origen dado");
+        System.out.println("2. Reservar un viaje");
+        System.out.println("3. Anular una reserva");
+        System.out.println("4. Ofertar un viaje");
+        System.out.println("5. Borrar un viaje");
+        do {
+            System.out.print("\nElige una opcion (0..5): ");
+            opcion = teclado.nextInt();
+        } while ( (opcion<0) || (opcion>5) );
+        teclado.nextLine(); // Elimina retorno de carro del buffer de entrada
+        return opcion;
     }
 
-    public static void generaViaje(GestorViajes gestor, String codcli) {
-        String origen = leerString("Introduce el origen del viaje:");
-        String destino = leerString("Introduce el destino del viaje:");
-        String fecha = leerString("Introduce una fecha válida para el viaje:");
-        long precio = leerLong("Introduce un precio válido");
-        long numPlazas = leerLong("Introduce un número de plazas válidas.");
 
+    /**
+     * Programa principal. Muestra el menú repetidamente y atiende las peticiones del cliente.
+     *
+     * @param args	no se usan argumentos de entrada al programa principal
+     */
+    public static void main(String[] args)  {
+
+        Scanner teclado = new Scanner(System.in);
+
+        // Crea un gestor de viajes
+        AuxiliarClienteViajes aux = null;
         try {
-            System.out.println(gestor.ofertaViaje(codcli, origen, destino, fecha, precio, numPlazas));
-        } catch (Exception e) {
-            System.out.println("Fecha no válida bobo.");
+            aux = new AuxiliarClienteViajes("localhost","12345");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        ;
 
-    }
+        JSONObject obj;
 
-    public static String leerString(String mensaje) {
-        System.out.println(mensaje);
-        return sc.next();
+        System.out.print("Introduce tu codigo de cliente: ");
+        String codcli = teclado.nextLine();
 
-    }
+        int opcion;
+        do {
+            opcion = menu(teclado);
+            switch (opcion) {
+                case 0: // Guardar los datos en el fichero y salir del programa
 
-    public static int leerInt(String mensaje) {
-        System.out.println(mensaje);
-        return sc.nextInt();
-    }
+                    // POR IMPLEMENTAR
+                    aux.cierraSesion();
+                    System.out.println("Cerrando sesion...");
+                    break;
+                case 1: { // Consultar viajes con un origen dado
 
-    public static long leerLong(String mensaje) {
-        System.out.println(mensaje);
-        return sc.nextLong();
-    }
+                    // POR IMPLEMENTAR
+                    System.out.print("Indica el origen del viaje: ");
+                    String origen = teclado.nextLine();
+                    JSONArray list = aux.consultaViajes(origen);
+                    System.out.println(list);
+                    break;
+                }
 
-    public static void mostrarMenu() {
-        System.out.println("1.- Salir del programa guardando los datos en el fichero.");
-        System.out.println("2.- Mostrar los datos de los viajes con un origen dado.");
-        System.out.println("3.- Reservar un viaje.");
-        System.out.println("4.- Anular una reserva.");
-        System.out.println("5.- Ofertar un nuevo viaje.");
-        System.out.println("6.- Borrar un viaje ofertado.");
-        System.out.println();
-    }
+                case 2: { // Reservar un viaje
 
-    public static void limpiarPantalla() {
-        System.out.println("Presiona enter para continuar...");
-        sc.next();
+                    // POR IMPLEMENTAR
+                    System.out.print("Indica el viaje a reservar: ");
+                    String codviaje = teclado.nextLine();
+                    obj = aux.reservaViaje(codviaje, codcli);
+                    System.out.println(obj);
+                    break;
+                }
 
-        for(int i = 0; i < 50; i++) {
-            System.out.println();
-        }
-    }
-}
+                case 3: { // Anular una reserva
+
+                    // POR IMPLEMENTAR
+                    System.out.print("Indica el viaje que quieres anular: ");
+                    String codviaje = teclado.nextLine();
+                    obj = aux.anulaReserva(codviaje, codcli);
+                    System.out.println(obj);
+                    break;
+                }
+
+                case 4: { // Ofertar un viaje
+
+                    // POR IMPLEMENTAR
+                    System.out.print("Dame el origen del viaje: ");
+                    String origen = teclado.nextLine();
+                    System.out.print("Dame el destino del viaje: ");
+                    String destino = teclado.nextLine();
+                    System.out.print("Dime la fecha del viaje(dd-MM-yyyy): ");
+                    String fecha = teclado.nextLine();
+                    System.out.print("Dime el precio del viaje: ");
+                    long precio = teclado.nextLong();
+                    System.out.print("Dime el numero de plazas disponibles: ");
+                    long plazas = teclado.nextLong();
+                    obj = aux.ofertaViaje(codcli, origen, destino, fecha, precio, plazas);
+                    System.out.println(obj);
+                    break;
+                }
+
+                case 5: { // Borrar un viaje ofertado
+
+                    // POR IMPLEMENTAR
+                    System.out.print("Indica el viaje que quieres borrar: ");
+                    String codviaje = teclado.nextLine();
+                    obj = aux.borraViaje(codviaje, codcli);
+                    System.out.println(obj);
+                    break;
+                }
+
+            } // fin switch
+
+        } while (opcion != 0);
+
+    } // fin de main
+
+} // fin class

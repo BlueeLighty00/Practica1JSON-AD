@@ -69,9 +69,13 @@ class HiloServidorViajes implements Runnable {
                         break;
                     }
                     case "3": { // Pone en venta un articulo
-                        // ...
+                        String codViaje = (String) jsonObject.get("codviaje");
+                        String codCliente = (String) jsonObject.get("codcliente");
 
+                        JSONObject viaje = gestor.anulaReserva(codViaje, codCliente);
+                        myDataSocket.sendMessage(viaje.toJSONString());
                         break;
+
                     }
                     case "4": { // Oferta un viaje
                         // ...
@@ -79,7 +83,11 @@ class HiloServidorViajes implements Runnable {
                         break;
                     }
                     case "5": { // Borra un viaje
-                        // ...
+                        String codViaje = (String) jsonObject.get("codviaje");
+                        String codCliente = (String) jsonObject.get("codcliente");
+
+                        JSONObject viaje = gestor.borraViaje(codViaje, codCliente);
+                        myDataSocket.sendMessage(viaje.toJSONString());
                         break;
                     }
 
